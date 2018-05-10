@@ -1,0 +1,85 @@
+{
+  "appenders": {
+    "access": {
+      "type": "dateFile",
+      "filename": "logs/access",
+      "pattern": "yyyy-MM-dd.log",
+      "alwaysIncludePattern":true,
+      "category":"calibrate"
+    },
+    "app": {
+      "type": "dateFile",
+      "filename": "logs/app",
+      "pattern": "yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "category":"calibrate"
+    },
+    "ErrorApp": {
+      "type": "dateFile",
+      "filename": "logs/ErrorApp",
+      "pattern": "yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "category":"calibrate"
+    },
+    "pmGeaBot": {
+      "type": "dateFile",
+      "layout": {
+      "type": "pattern",
+      "pattern": "%d{dd/MM/yyyy hh:mm:ss}%m"
+    },
+      "filename": "logs/pmGeaBot",
+      "pattern": "yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "category":"calibrate"
+    },
+    "CdrBots": {
+      "type": "dateFile",
+      "layout": {
+      "type": "pattern",
+      "pattern": "%d{dd/MM/yyyy hh:mm:ss}%m"
+    },
+      "filename": "logs/CdrBots",
+      "pattern": "yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
+      "category":"calibrate"
+    },
+    "just_errors": {
+      "type": "logLevelFilter",
+      "appender": "error",
+      "level": "ERROR"
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "app"
+      ],
+      "level": "debug"
+    },
+    "http": {
+      "appenders": [
+        "access"
+      ],
+      "level": "info"
+    },
+    "pmGeaBot": {
+      "appenders": [
+        "pmGeaBot"
+      ],
+      "level": "info"
+    },
+    "ErrorApp": {
+      "appenders": [
+        "ErrorApp"
+      ],
+      "level": "info"
+    },
+    "CdrBots": {
+      "appenders": [
+        "CdrBots"
+      ],
+      "level": "info"
+    }
+  }
+}
+

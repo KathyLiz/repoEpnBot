@@ -1,0 +1,113 @@
+#!/usr/bin/env node
+"use strict";
+
+//var debug = require('debug')('log4js-example');
+var cluster = require('express-cluster');
+const https = require('https');
+var port = normalizePort(process.env.PORT || 443);
+const fs = require('fs');
+
+
+try {
+  require('fs').mkdirSync('./log');
+} catch (e) {
+  if (e.code != 'EEXIST') {
+    console.error("Could not set up log directory, error was: ", e);
+    process.exit(1);
+  }
+}
+
+var credentials ={
+cert: fs.readFileSync('./bot/certificado.crt','utf8'),
+key:fs.readFileSync('./bot/server.key','utf8'),
+ca:fs.readFileSync('./bot/certificado.ca','utf8'),
+passphrase:'antena10'
+};
+
+
+//se configura el objeto para generar logs
+var log4js = require('log4js');
+log4js.configure('./config/log4js.json');
+//Log de información para errores de programación
+var log = log4js.getLogger("app");
+
+//let's start up a cluster
+cluster(function() {
+  var appi = require('../app');
+  appi.set('port',port);
+  //server.listen(443, () => console.log('El servidor está escuchando en el puerto 443'));
+  
+
+   var server=https.createServer(credentials,appi);
+   server.listen(port,function() {
+	console.log('Express server listening on port ', server.address().port, " with pid ", process.pid);
+    log.info('Express server listening on port ', server.address().port, " with pid ", process.pid );
+  });
+
+ // server.on("listening", onListening(server));
+
+  //Se configura un handler de errores en el servidor
+  server.on("error", onError);
+
+});
+
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  var bind = typeof port === "string"
+    ? "Pipe " + port
+    : "Port " + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      log.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      log.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ 
+function onListening(server) {
+  var addr = server.address();
+  var bind = typeof addr === "string"
+    ? "pipe " + addr
+    : "port " + addr.port;
+  log.debug("Listening on " + bind);
+}*/
+
+
+
+
+
+
+ 

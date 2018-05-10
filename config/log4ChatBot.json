@@ -1,0 +1,20 @@
+{
+  "appenders": {
+    "pmGeaBot": {
+      "type": "file",
+      "layout": {
+      "type": "pattern",
+      "pattern": "%d{dd/MM/yyyy hh:mm:ss} %m%n"
+    },
+      "filename": "log/pmGeaBot1.log"
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "pmGeaBot"
+      ],
+      "level": "info"
+    }
+  }
+}
