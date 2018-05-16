@@ -25,7 +25,8 @@ var log = log4js.getLogger("process_message_EPN");
 log4js.connectLogger(log4js.getLogger("chat"), { level: 'auto' })
 //Info log for reports (GEA) Log de información para errores de programación
 var logApp = log4js.getLogger("app");
-
+var urlCuentaOK = 'http://servicios-it.epn.edu.ec/images/DGIP/Descargas/Manual-de-Usuario-EPN-LA100.pdf';
+var urlCuentaNOK = 'http://servicios-it.epn.edu.ec/images/Manual-de-Usuario-EPN_EVENTOS-o-EPN_INVITADOS.pdf';
 
 /////////////////////////////////////////HERE THE CODE BEGINS ////////////////////////////////////////////////////
 
@@ -125,7 +126,7 @@ process_message_EPN.prototype.procesarMensaje = function () {
         var intentName = response.result.metadata.intentName;
         var question = response.result.resolvedQuery;
         var action = response.result.action;
-        
+        var buttonsArray = [];
 
         trace = action;
 
@@ -163,14 +164,16 @@ process_message_EPN.prototype.procesarMensaje = function () {
             createLinkJSONResponse(mensaje, templateJSON, true, 'http://plusservices.ec/unete/');
         }else if(intentName === 'visita-plusservice' || intentName === 'contacto-plusservice'){ //escribenos
             createLinkJSONResponse(mensaje, templateJSON, false, '#escribenos');
-        }else if(intentName === 'presentacion-empresa-plusservice'){
-            createLinkJSONResponse(mensaje, templateJSON, false, '#nosotros');
-        }else if(intentName === 'servicios-plusservices'){
-        	createLinkJSONResponse(mensaje, templateJSON, false, '#soluciones');
-        }else if(intentName === 'tecnologiaServicios-plusservice'){//tecnologias
-            createLinkJSONResponse(mensaje, templateJSON, false, '.vc_row.wpb_row.vc_row-fluid.vc_custom_1500051689539.vc_row-has-fill.vc_row-no-padding');
-        }else if(intentName === 'sectores-plusservice'){
-            createLinkJSONResponse(mensaje, templateJSON, false, '#sectores');
+        }else if(intentName === 'carreras_epn'){
+            buttonsArray = [{tipo:'Carreras de Grado',texto:'carreras de grado'},{tipo:'Carreras de Posgrado',texto:'carreras de posgrado'},{tipo:'Tecnologías',texto:'carreras de tecnología'}];
+            createButtonResponse(mensaje, templateJSON,intentName,buttonsArray);
+        }else if(intentName === 'cuenta_no'){
+        	createLinkJSONResponse(mensaje, templateJSON, true, urlCuentaNOK);
+        }else if(intentName === 'cuenta_si'){//tecnologias
+            createLinkJSONResponse(mensaje, templateJSON, true, urlCuentaOK);
+        }else if(intentName === 'acceso_red'){
+            buttonsArray = [{tipo:'Si',texto:'si tengo correo institucional'},{tipo:'No',texto:'No tengo cuenta de correo institucional'}];
+            createButtonResponse(mensaje, templateJSON,intentName,buttonsArray);
             //sectores
         }else{ //Only text response, send API.AI response
         	createTextResponse(mensaje, templateJSON);
@@ -243,6 +246,16 @@ function createTextResponse(message, templateJSON){
     logApp.info("En la función: createTextResponse()");
 }
 
+/**
+ * Function to pass textReponse to the chat.
+ */
+function createButtonResponse(message, templateJSON,intent,arrayBotones){
+	templateJSON.typeMessage = 'button_template';
+    templateJSON.message = message;
+    templateJSON.intent = intent;
+    templateJSON.buttonText=arrayBotones;
+    logApp.info("En la función: createButtonResponse()");
+}
 
 /**
  * Function to pass Video response (False: Videos avalaibles in the server. True: Videos are external resources(Like Youtube))
