@@ -1,7 +1,68 @@
 /**
  * JS File to create constants (URL Resources, URL images, URL Videos, etc)(GEA Bot)
  */
+/**
+ * Function to create array of constants (Resources Images) to create carrousel
+ */
+function createCarrouselCarrerasGrado(){
+	var array = [];
+	var arrayToSend = [];
 
+
+	var ciencias ={  
+        "urlImage":"http://www.epn.edu.ec/wp-content/uploads/2014/10/ciencias1.jpg",
+        "title":"Facultad de Ciencias",
+        "carreras":"Física, Matemática, Ingeniería Matemática, Economía"
+    };
+    var cienciasAdmin ={  
+        "urlImage":"http://www.epn.edu.ec/wp-content/uploads/2014/09/CEC_EPN_Classroom_Building_at_Escuela_Polit%C3%A9cnica_Nacional_Quito_Ecuador._01.jpg",
+        "title":"Facultad de Ciencias Administrativas",
+        "carreras":"Ingeniería de la Producción"
+    };
+    var civilAmbiental ={  
+        "urlImage":"http://www.epn.edu.ec/wp-content/uploads/2014/10/civil.jpg",
+        "title":"Facultad de Ingeniería Civil y Ambiental",
+        "carreras":" Ingeniería Civil,  Ingeniería Ambiental"
+    };
+    var electricaElectronica ={  
+        "urlImage":"http://www.epn.edu.ec/wp-content/uploads/facultaddeingenieriaelectricaadentro.jpg",
+        "title":"Facultad de Ingeniería Eléctrica y Electrónica",
+        "carreras":"Electricidad, Electrónica y Automatización, Tecnologías de la Información, Telecomunicaciones"
+    };
+
+    var geoPetroleos ={  
+        "urlImage":"http://www.epn.edu.ec/wp-content/uploads/2014/10/petroleos.jpg",
+        "title":" Facultad de Ingeniería en Geología y Petróleos",
+        "carreras":"Ingeniería en Geología, Ingeniería en Minas y Petróleos"
+    };
+    var mecanica ={  
+        "urlImage":"http://www.epn.edu.ec/wp-content/uploads/2010/09/DSC00421.jpg",
+        "title":"Facultad de Ingeniería Mecánica",
+        "carreras":"Ingeniería Mecánica"
+    };
+    var quimiaAgro ={  
+        "urlImage":"http://www.epn.edu.ec/wp-content/uploads/edquimicaweb.jpg",
+        "title":"Facultad de Ingeniería Química y Agroindustria",
+        "carreras":"Ingeniería Química, INgeniería en Agroindustria"
+    };
+    var sistemas ={  
+        "urlImage":"http://www.epn.edu.ec/wp-content/uploads/2014/10/sistemas1.jpg",
+        "title":"Facultad de Ingeniería de Sistemas",
+        "carreras":"Ingeniería de Software, Ingeniería en Ciencias de la Computación"
+    };
+
+    array.push(ciencias);
+    array.push(cienciasAdmin);
+    array.push(civilAmbiental);
+    array.push(electricaElectronica);
+    array.push(geoPetroleos);
+    array.push(mecanica);
+    //New images
+    array.push(quimiaAgro);
+    array.push(sistemas);
+
+    return array;
+}
 
 /**
  * Function to create array of constants (Resources Images) to create carrousel
@@ -135,6 +196,7 @@ function shuffle(totalArray) {
 module.exports = Object.freeze({
 	CODE_INIT_SESSION: "59b1b13db2df1",
     CARROUSEL_CLIENTS_ARRAY: createCarrouselConstants(),
+    CARROUSEL_CARRERAS_GRADO_ARRAY: createCarrouselCarrerasGrado(),
     VIDEOS_SERVICES_YOUTUBE_ARRAY: createURLYoutubeVideos(),
     IMAGE_UBICATION_CONTACT_CENTER_URL: "https://chatbot.interlancompu.com/view/images/ubicationContactCenter.png"
 });

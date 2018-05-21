@@ -12,7 +12,7 @@ var idSession = "";
 
 
 
-//var constants = require('./resources.js');
+var constants = require('./resources.js');
 var codeInitSession = "59b1b13db2df1";
 
 
