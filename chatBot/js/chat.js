@@ -109,24 +109,44 @@ function drawTextResponse(message){
 }
 
 function drawLinkResponse(data){
+  var intent = data.intent 
   var now = new Date();
   dscrol=jQuery('.popup-messages')[0];
-  var url ='http://servicios-it.epn.edu.ec/images/DGIP/Descargas/Manual-de-Usuario-EPN-LA100.pdf';
   htmladd=''
-  if(dscrol.outerText.search(now.toDateString())==-1){
-     htmladd+='<div class="chat-box-single-line"><abbr class="timestamp">'+now.toDateString()+'</abbr></div>';
+  if(intent === 'ingreso_epn' || intent === 'obtener_licencias'){
+    if(dscrol.outerText.search(now.toDateString())==-1){
+      htmladd+='<div class="chat-box-single-line"><abbr class="timestamp">'+now.toDateString()+'</abbr></div>';
+   }
+   htmladd+='<div class="direct-chat-msg">'+
+     '<div class="direct-chat-info clearfix">'+
+     '<span class="direct-chat-name pull-left">Nati</span>'+
+     '</div>'+
+      '<img alt="iamgurdeeposahan" src="'+urlBotImage+'" class="direct-chat-img">'+
+      '<div class="direct-chat-text request">'+data.message+'<br>'+
+      '<a class="btn btn-primary btn-sm" role="button" href="'+data.objectsResponse[0].url+'">Ir a la página</a>'
+      '</div>'+
+      '<div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-right">'+now.getHours()+':'+now.getMinutes()+'</span>'+
+      '</div>'+
+      '</div>';
+  }else{
+    if(dscrol.outerText.search(now.toDateString())==-1){
+      htmladd+='<div class="chat-box-single-line"><abbr class="timestamp">'+now.toDateString()+'</abbr></div>';
+   }
+   htmladd+='<div class="direct-chat-msg">'+
+     '<div class="direct-chat-info clearfix">'+
+     '<span class="direct-chat-name pull-left">Nati</span>'+
+     '</div>'+
+   '<img alt="iamgurdeeposahan" src="'+urlBotImage+'" class="direct-chat-img">'+
+   '<div class="direct-chat-text request">'+data.message+'<br>'+
+   '<button class="btn btn-primary btn-sm" onclick="showPDF(\''+data.objectsResponse[0].url+'\')">Quiero ver el manual</button>'
+   '</div>'+
+   '<div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-right">'+now.getHours()+':'+now.getMinutes()+'</span>'+
+   '</div>'+
+   '</div>';
   }
-  htmladd+='<div class="direct-chat-msg">'+
-    '<div class="direct-chat-info clearfix">'+
-    '<span class="direct-chat-name pull-left">Nati</span>'+
-    '</div>'+
-  '<img alt="iamgurdeeposahan" src="'+urlBotImage+'" class="direct-chat-img">'+
-  '<div class="direct-chat-text request">'+data.message+'<br>'+
-  '<button class="btn btn-primary btn-sm" onclick="showPDF(\''+data.objectsResponse[0].url+'\')">Quiero ver el manual</button>'
-  '</div>'+
-  '<div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-right">'+now.getHours()+':'+now.getMinutes()+'</span>'+
-  '</div>'+
-  '</div>';
+
+  
+  
   jQuery(".direct-chat-messages").append(htmladd);
   jQuery(dscrol).scrollTop((jQuery('.direct-chat-messages')[0]).clientHeight);
   //jQuery(dscrol).scrollTop(1000);
@@ -235,6 +255,11 @@ function sendRequest(texto)
       case 'carousel': {
         console.log('Resuesta',data);
         generateCarousel(data.cards,data.message,data.url)
+      }
+      break;
+      case 'imagesArray': {
+        console.log('Resuesta',data);
+        //generateCarousel(data.cards,data.message,data.url)
       }
       break;
       default: alert('hey');
