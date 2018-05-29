@@ -5,7 +5,7 @@ window.onload = function(){
   var now = new Date();
   var fecha = this.document.getElementById("dateNow");
   fecha.innerHTML = now.toDateString();
-  alert(now.toLocaleDateString('en-US'));
+  //alert(now.toLocaleDateString('en-US'));
 }
 
 function drawResponseChat(msg){
