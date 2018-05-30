@@ -329,3 +329,7 @@ function generateCarousel(cardsArray,message,url){
   console.log('btn Template',carouselTemplate);
 
 }
+
+function verMas(){
+  alert("hiciste");
+}

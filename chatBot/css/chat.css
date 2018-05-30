@@ -13,8 +13,14 @@ body
    width: 150px;
 }
 .carouselSize{
-    width: 190px;
+    width: 150px;
     height:150px;
+ }
+
+ .imageSize{
+    width: 150px;
+    height:150px;
+    border:0;
  }
  .heightBody{
     height:73px;
@@ -55,6 +61,20 @@ input[type=text] {
 input[type=text]:focus {
     border-bottom: 2px solid rgba(5,46,94,0.85098);
     outline-width: 0;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 2px 16px;
 }
 
 .popup-box {
